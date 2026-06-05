@@ -71,8 +71,9 @@ coverage/
 .metadata
 .flutter-plugins-dependencies
 
-# Archivos markdown
+# Archivos markdown (excepto README)
 *.md
+!README.md
 
 # Archivos SQL
 *.sql
