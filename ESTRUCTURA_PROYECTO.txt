@@ -1,0 +1,138 @@
+ESTRUCTURA FINAL DEL PROYECTO - PLANTCARE
+==========================================
+
+ARQUITECTURA: MVVM + Clean Architecture + Vertical Slicing
+INYECCION DE DEPENDENCIAS: Manual (usando Modules)
+ESTADO: Provider (separado por feature)
+NAVEGACION: Navigation 1.0
+
+FEATURES IMPLEMENTADAS:
+=======================
+
+1. LOGIN (lib/features/login/)
+   - domain/
+     - entities/usuario_entity.dart
+     - repositories/login_repository.dart
+     - usecases/login_usecase.dart
+   - data/
+     - datasources/remote/login_remote_datasource.dart
+     - models/usuario_model.dart
+     - repositories/login_repository_impl.dart
+   - presentation/
+     - screens/login_screen.dart
+     - viewmodels/login_viewmodel.dart
+   - di/
+     - login_module.dart
+
+2. REGISTRO (lib/features/registro/)
+   - domain/
+     - entities/usuario_entity.dart
+     - repositories/registro_repository.dart
+     - usecases/registro_usecase.dart
+   - data/
+     - datasources/remote/registro_remote_datasource.dart
+     - models/usuario_model.dart
+     - repositories/registro_repository_impl.dart
+   - presentation/
+     - screens/registro_screen.dart
+     - viewmodels/registro_viewmodel.dart
+   - di/
+     - registro_module.dart
+
+3. PLANTAS (lib/features/plantas/)
+   - domain/
+     - entities/planta_entity.dart
+     - repositories/plantas_repository.dart
+     - usecases/
+       - obtener_plantas_usecase.dart
+       - crear_planta_usecase.dart
+       - actualizar_planta_usecase.dart
+       - eliminar_planta_usecase.dart
+   - data/
+     - datasources/remote/plantas_remote_datasource.dart
+     - models/planta_model.dart
+     - repositories/plantas_repository_impl.dart
+   - presentation/
+     - screens/
+       - planta_formulario_screen.dart
+       - planta_detalle_screen.dart
+     - viewmodels/plantas_viewmodel.dart
+   - di/
+     - plantas_module.dart
+
+4. PERFIL (lib/features/perfil/)
+   - presentation/
+     - screens/perfil_screen.dart
+
+5. DASHBOARD (lib/features/dashboard/)
+   - presentation/
+     - screens/dashboard_screen.dart
+
+6. CALENDARIO (lib/features/calendario/)
+   - presentation/
+     - screens/calendario_screen.dart
+
+7. ESTADISTICAS (lib/features/estadisticas/)
+   - presentation/
+     - screens/estadisticas_screen.dart
+
+8. NAVEGACION (lib/features/navegacion/)
+   - presentation/
+     - screens/navegacion_principal_screen.dart
+
+9. BIENVENIDA (lib/features/bienvenida/)
+   - presentation/
+     - screens/bienvenida_screen.dart
+
+FLUJO DE INYECCION DE DEPENDENCIAS:
+====================================
+
+main.dart:
+  - Crea httpClient
+  - Usa Modules para crear ViewModels:
+    * LoginModule.provideLoginViewmodel(httpClient)
+    * RegistroModule.provideRegistroViewmodel(httpClient)
+    * PlantasModule.provideePlantasViewmodel(httpClient)
+  - Provee los ViewModels separados via MultiProvider
+
+Cada Module:
+  - Crea Datasource (con httpClient)
+  - Crea Repository (con datasource)
+  - Crea UseCases (con repository)
+  - Crea ViewModel (con usecases)
+
+PROVIDERS SEPARADOS:
+====================
+- LoginViewmodel
+- RegistroViewmodel
+- PlantasViewmodel
+
+WIDGETS UTILIZADOS:
+===================
+- Card
+- ListTile
+- GridView
+- Stack
+- CustomScrollView
+- SliverAppBar
+- TextField
+- DropdownButtonFormField
+- LinearProgressIndicator
+- TableCalendar
+- PieChart (fl_chart)
+- BarChart (fl_chart)
+
+ESTADO:
+=======
+Cada feature maneja su propio estado a traves de su ViewModel que extiende ChangeNotifier.
+
+CARACTERISTICAS:
+================
+- Sin acentos en codigo
+- Sin emojis (excepto en UI)
+- Sin comentarios innecesarios
+- Codigo limpio y simple
+- MVVM puro
+- Vertical slicing (features independientes)
+- Clean Architecture
+- Inyeccion manual de dependencias
